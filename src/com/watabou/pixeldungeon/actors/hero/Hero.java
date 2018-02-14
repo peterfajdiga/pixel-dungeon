@@ -1015,6 +1015,19 @@ public class Hero extends Char {
 
 		return act();
 	}
+
+	public void feedWarlock() {
+		if (subClass == HeroSubClass.WARLOCK) {
+
+			int value = Math.min( HT - HP, 1 + (Dungeon.depth - 1) / 5 );
+			if (value > 0) {
+				HP += value;
+				sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+			}
+
+			((Hunger)buff( Hunger.class )).satisfy( 10 );
+		}
+	}
 	
 	public void earnExp( int exp ) {
 		
@@ -1044,17 +1057,6 @@ public class Hero extends Char {
 			Sample.INSTANCE.play( Assets.SND_LEVELUP );
 			
 			Badges.validateLevelReached();
-		}
-		
-		if (subClass == HeroSubClass.WARLOCK) {
-			
-			int value = Math.min( HT - HP, 1 + (Dungeon.depth - 1) / 5 );
-			if (value > 0) {
-				HP += value;
-				sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-			}
-			
-			((Hunger)buff( Hunger.class )).satisfy( 10 );
 		}
 	}
 	

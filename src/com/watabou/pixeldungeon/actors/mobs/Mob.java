@@ -347,6 +347,7 @@ public abstract class Mob extends Char {
 				Dungeon.hero.sprite.showStatus( CharSprite.POSITIVE, TXT_EXP, exp );
 				Dungeon.hero.earnExp( exp );
 			}
+			Dungeon.hero.feedWarlock();
 		}
 	}
 	
