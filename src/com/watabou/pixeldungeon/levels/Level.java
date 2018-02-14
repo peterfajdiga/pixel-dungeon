@@ -237,7 +237,7 @@ public abstract class Level implements Bundlable {
 		
 		adjustMapSize();
 		
-		Collection<Bundlable> collection = bundle.getCollection( HEAPS );
+		Collection<? extends Bundlable> collection = bundle.getCollection( HEAPS );
 		for (Bundlable h : collection) {
 			Heap heap = (Heap)h;
 			if (resizingNeeded) {
