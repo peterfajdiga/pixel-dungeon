@@ -20,6 +20,7 @@ package com.watabou.pixeldungeon.items.armor;
 import java.util.ArrayList;
 
 import com.watabou.pixeldungeon.Badges;
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.hero.Hero;
@@ -333,7 +334,8 @@ public class Armor extends EquipableItem {
 		private static final Class<?>[] glyphs = new Class<?>[]{ 
 			Bounce.class, Affection.class, AntiEntropy.class, Multiplicity.class, 
 			Potential.class, Metabolism.class, Stench.class, Viscosity.class,
-			Displacement.class, Entanglement.class, AutoRepair.class };
+			Displacement.class, Entanglement.class,
+			Customization.ITEM_DAMAGE_ENABLED ? AutoRepair.class : GoldAbsorption.class };
 		
 		private static final float[] chances= new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 			
