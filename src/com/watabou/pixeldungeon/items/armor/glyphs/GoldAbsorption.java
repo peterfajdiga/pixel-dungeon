@@ -3,7 +3,7 @@ package com.watabou.pixeldungeon.items.armor.glyphs;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.hero.Hero;
-import com.watabou.pixeldungeon.effects.Speck;
+import com.watabou.pixeldungeon.effects.Flare;
 import com.watabou.pixeldungeon.items.armor.Armor;
 import com.watabou.pixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -18,7 +18,7 @@ public class GoldAbsorption extends Armor.Glyph {
 
     private static ItemSprite.Glowing GRAY = new ItemSprite.Glowing( 0xCC8888 );
 
-    private static final float UPGRADE_PROBABILITY = 0.1f;
+    private static final float UPGRADE_PROBABILITY = 0.03f;
 
     @Override
     public int proc(Armor armor, Char attacker, Char defender, int damage) {
@@ -26,7 +26,7 @@ public class GoldAbsorption extends Armor.Glyph {
             Dungeon.gold -= armor.tier;
             if (Random.Float() < UPGRADE_PROBABILITY) {
                 armor.upgrade();
-                defender.sprite.emitter().burst( Speck.factory( Speck.STAR ), 1 );
+                new Flare( 8, 32 ).color( 0x66FF66, true ).show( defender.sprite, 2f );
             }
         }
         return damage;
