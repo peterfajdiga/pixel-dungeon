@@ -9,4 +9,6 @@ public final class Customization {
     private Customization() {}
 
     public static final boolean ITEM_DAMAGE_ENABLED = false;
+    public static final boolean ALWAYS_NIGHT = false;  // takes precedence
+    public static final boolean ALWAYS_DAY = true;
 }
