@@ -3,8 +3,9 @@ package com.watabou.pixeldungeon.items.armor.glyphs;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.hero.Hero;
-import com.watabou.pixeldungeon.effects.Flare;
+import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.items.armor.Armor;
+import com.watabou.pixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.watabou.pixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
 
@@ -26,7 +27,8 @@ public class GoldAbsorption extends Armor.Glyph {
             Dungeon.gold -= armor.tier;
             if (Random.Float() < UPGRADE_PROBABILITY) {
                 armor.upgrade();
-                new Flare( 8, 32 ).color( 0x66FF66, true ).show( defender.sprite, 2f );
+                ScrollOfUpgrade.upgrade( (Hero)defender );
+                Item.evoke( (Hero)defender );
             }
         }
         return damage;
