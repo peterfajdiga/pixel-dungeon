@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Badges;
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.ResultDescriptions;
 import com.watabou.pixeldungeon.actors.Actor;
@@ -134,7 +135,7 @@ public class WandOfMagicMissile extends Wand {
 				
 				GLog.w( TXT_DISENCHANTED, item.name() );
 				
-				item.upgrade();
+				item.upgrade(Math.min(level(), Customization.DISMANTLE_UPGRADE_CAP));
 				curUser.spendAndNext( TIME_TO_DISENCHANT );
 				
 				Badges.validateItemLevelAquired( item );

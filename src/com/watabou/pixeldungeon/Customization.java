@@ -11,4 +11,5 @@ public final class Customization {
     public static final boolean ITEM_DAMAGE_ENABLED = false;
     public static final boolean ALWAYS_NIGHT = false;  // takes precedence
     public static final boolean ALWAYS_DAY = true;
+    public static final int DISMANTLE_UPGRADE_CAP = Integer.MAX_VALUE;  // default is 1
 }

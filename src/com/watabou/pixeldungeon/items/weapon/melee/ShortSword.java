@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Badges;
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.actors.hero.Hero;
 import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.items.scrolls.ScrollOfUpgrade;
@@ -110,8 +111,11 @@ public class ShortSword extends MeleeWeapon {
 				evoke( curUser );
 				
 				GLog.w( TXT_REFORGED, item.name() );
-				
-				((MeleeWeapon)item).safeUpgrade();
+
+				final int n_upgrade = Math.min(level(), Customization.DISMANTLE_UPGRADE_CAP);
+				for (int i = 0; i < n_upgrade; i++) {
+					((MeleeWeapon)item).safeUpgrade();
+				}
 				curUser.spendAndNext( TIME_TO_REFORGE );
 				
 				Badges.validateItemLevelAquired( item );
