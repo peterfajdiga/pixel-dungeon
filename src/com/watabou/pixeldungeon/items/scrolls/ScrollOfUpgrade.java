@@ -18,6 +18,7 @@
 package com.watabou.pixeldungeon.items.scrolls;
 
 import com.watabou.pixeldungeon.Badges;
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.hero.Hero;
 import com.watabou.pixeldungeon.effects.Speck;
@@ -39,7 +40,7 @@ public class ScrollOfUpgrade extends InventoryScroll {
 	protected void onItemSelected( Item item ) {
 
 		ScrollOfRemoveCurse.uncurse( Dungeon.hero, item );
-		if (item.isBroken()) {
+		if (!Customization.UPGRADE_ALWAYS_UPGRADES && item.isBroken()) {
 			item.fix();
 		} else {
 			item.upgrade();
