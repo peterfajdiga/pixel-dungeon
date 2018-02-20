@@ -39,13 +39,13 @@ import com.watabou.utils.Bundle;
 public enum HeroClass {
 
 	WARRIOR( "warrior" ), MAGE( "mage" ), ROGUE( "rogue" ), HUNTRESS( "huntress" );
-	
+
 	private String title;
-	
+
 	private HeroClass( String title ) {
 		this.title = title;
 	}
-	
+
 	public static final String[] WAR_PERKS = {
 		"Warriors start with 11 points of Strength.",
 		"Warriors start with a unique short sword. This sword can be later \"reforged\" to upgrade another melee weapon.",
@@ -53,7 +53,7 @@ public enum HeroClass {
 		"Any piece of food restores some health when eaten.",
 		"Potions of Strength are identified from the beginning.",
 	};
-	
+
 	public static final String[] MAG_PERKS = {
 		"Mages start with a unique Wand of Magic Missile. This wand can be later \"disenchanted\" to upgrade another wand.",
 		"Mages recharge their wands faster.",
@@ -61,7 +61,7 @@ public enum HeroClass {
 		"Mages can use wands as a melee weapon.",
 		"Scrolls of Identify are identified from the beginning."
 	};
-	
+
 	public static final String[] ROG_PERKS = {
 		"Rogues start with a Ring of Shadows+1.",
 		"Rogues identify a type of a ring on equipping it.",
@@ -70,7 +70,7 @@ public enum HeroClass {
 		"Rogues can go without food longer.",
 		"Scrolls of Magic Mapping are identified from the beginning."
 	};
-	
+
 	public static final String[] HUN_PERKS = {
 		"Huntresses start with 15 points of Health.",
 		"Huntresses start with a unique upgradeable boomerang.",
@@ -78,38 +78,38 @@ public enum HeroClass {
 		"Huntresses gain more health from dewdrops.",
 		"Huntresses sense neighbouring monsters even if they are hidden behind obstacles."
 	};
-	
+
 	public void initHero( Hero hero ) {
-		
+
 		hero.heroClass = this;
-		
+
 		initCommon( hero );
-		
+
 		switch (this) {
 		case WARRIOR:
 			initWarrior( hero );
 			break;
-			
+
 		case MAGE:
 			initMage( hero );
 			break;
-			
+
 		case ROGUE:
 			initRogue( hero );
 			break;
-			
+
 		case HUNTRESS:
 			initHuntress( hero );
 			break;
 		}
-		
+
 		if (Badges.isUnlocked( masteryBadge() )) {
 			new TomeOfMastery().collect();
 		}
-		
+
 		hero.updateAwareness();
 	}
-	
+
 	private static void initCommon( Hero hero ) {
 		(hero.belongings.armor = new ClothArmor()).identify();
 		new Food().identify().collect();

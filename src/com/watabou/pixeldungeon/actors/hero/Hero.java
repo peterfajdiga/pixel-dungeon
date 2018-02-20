@@ -62,6 +62,7 @@ import com.watabou.pixeldungeon.items.Amulet;
 import com.watabou.pixeldungeon.items.Ankh;
 import com.watabou.pixeldungeon.items.DewVial;
 import com.watabou.pixeldungeon.items.Dewdrop;
+import com.watabou.pixeldungeon.items.EquipableItem;
 import com.watabou.pixeldungeon.items.Heap;
 import com.watabou.pixeldungeon.items.Heap.Type;
 import com.watabou.pixeldungeon.items.Item;
@@ -104,6 +105,7 @@ import com.watabou.pixeldungeon.ui.AttackIndicator;
 import com.watabou.pixeldungeon.ui.BuffIndicator;
 import com.watabou.pixeldungeon.utils.GLog;
 import com.watabou.pixeldungeon.windows.WndMessage;
+import com.watabou.pixeldungeon.windows.WndOptions;
 import com.watabou.pixeldungeon.windows.WndResurrect;
 import com.watabou.pixeldungeon.windows.WndTradeItem;
 import com.watabou.utils.Bundle;
@@ -564,6 +566,58 @@ public class Hero extends Char {
 			return false;
 		}
 	}
+
+	private void actPickUpEquip( HeroAction.PickUp action ) {
+		final int dst = action.dst;
+		if (pos != dst) {
+			// this should never happen
+			return;
+		}
+		final Heap heap = Dungeon.level.heaps.get( pos );
+		if (heap == null) {
+			// this should never happen
+			return;
+		}
+
+		final Item item = heap.pickUp();
+		if ( item instanceof EquipableItem && (!(item instanceof Wand) || (Dungeon.hero.heroClass == HeroClass.MAGE)) ) {
+			// should always happen
+
+			GameScene.show(new WndOptions(item.name(),
+					"Your pack is too full for this item. Do you want to equip directly?",
+					"Equip", "Leave on floor") {
+				@Override
+				protected void onSelect(int index) {
+					switch (index) {
+						case 0:
+							if ( ((EquipableItem)item).doEquip(Dungeon.hero) ) {
+								GameScene.pickUp(item);  // icon animation
+								Sample.INSTANCE.play(Assets.SND_ITEM);
+								Dungeon.hero.spendAndNext(Item.TIME_TO_PICK_UP);
+								GLog.i("You picked up %s and equipped it", item.name());
+							}
+							break;
+						case 1:
+							// place back on floor
+							Dungeon.level.drop( item, pos ).sprite.drop();
+							break;
+					}
+					ready();
+				}
+
+				@Override
+				public void onBackPressed() {
+					// cancel
+					super.onBackPressed();
+					onSelect(1);
+				}
+			});
+
+		} else {
+			Dungeon.level.drop( item, pos ).sprite.drop();
+			ready();
+		}
+	}
 	
 	private boolean actPickUp( HeroAction.PickUp action ) {
 		int dst = action.dst;
@@ -594,6 +648,9 @@ public class Hero extends Char {
 				} else {
 					Dungeon.level.drop( item, pos ).sprite.drop();
 					ready();
+					if ( item instanceof EquipableItem && (!(item instanceof Wand) || (Dungeon.hero.heroClass == HeroClass.MAGE)) ) {
+						actPickUpEquip(action);
+					}
 				}
 			} else {
 				ready();

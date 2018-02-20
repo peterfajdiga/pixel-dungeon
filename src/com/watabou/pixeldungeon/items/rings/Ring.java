@@ -126,6 +126,8 @@ public class Ring extends EquipableItem {
 			
 			final Ring r1 = hero.belongings.ring1;
 			final Ring r2 = hero.belongings.ring2;
+
+			final Ring requestedRing = this;
 			
 			PixelDungeon.scene().add( 
 				new WndOptions( TXT_UNEQUIP_TITLE, TXT_UNEQUIP_MESSAGE, 
@@ -142,6 +144,15 @@ public class Ring extends EquipableItem {
 							doEquip( hero );
 						} else {
 							collect( hero.belongings.backpack );
+						}
+					}
+
+					@Override
+					public void onBackPressed() {
+						super.onBackPressed();
+						if (!hero.belongings.backpack.contains(requestedRing)) {
+							// requestedRing is not in the backpack, but was on the floor. Let's put it back there.
+							Dungeon.level.drop( requestedRing, hero.pos ).sprite.drop();
 						}
 					}
 				} );
