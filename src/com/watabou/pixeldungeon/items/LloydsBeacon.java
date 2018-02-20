@@ -175,4 +175,9 @@ public class LloydsBeacon extends Item {
 	public String info() {
 		return TXT_INFO + (returnDepth == -1 ? "" : Utils.format( TXT_SET, returnDepth ) );
 	}
+
+	@Override
+	public int price() {
+		return 50;
+	}
 }

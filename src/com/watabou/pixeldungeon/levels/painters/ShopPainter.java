@@ -19,6 +19,7 @@ package com.watabou.pixeldungeon.levels.painters;
 
 import java.util.ArrayList;
 
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.mobs.Mob;
 import com.watabou.pixeldungeon.actors.mobs.npcs.ImpShopkeeper;
@@ -27,6 +28,7 @@ import com.watabou.pixeldungeon.items.Ankh;
 import com.watabou.pixeldungeon.items.Generator;
 import com.watabou.pixeldungeon.items.Heap;
 import com.watabou.pixeldungeon.items.Item;
+import com.watabou.pixeldungeon.items.LloydsBeacon;
 import com.watabou.pixeldungeon.items.Torch;
 import com.watabou.pixeldungeon.items.Weightstone;
 import com.watabou.pixeldungeon.items.armor.*;
@@ -97,6 +99,17 @@ public class ShopPainter extends Painter {
 			items.add( new LeatherArmor().identify() );
 			items.add( new SeedPouch() );
 			items.add( new Weightstone() );
+			if (Customization.LLOYDSBEACON_SHOP) {
+				boolean hasLloydsBeacon = false;
+				for (final Item item : Dungeon.hero.belongings.backpack) {
+					if (item instanceof LloydsBeacon) {
+						hasLloydsBeacon = true;
+					}
+				}
+				if (!hasLloydsBeacon) {
+					items.add(new LloydsBeacon());
+				}
+			}
 			break;
 			
 		case 11:

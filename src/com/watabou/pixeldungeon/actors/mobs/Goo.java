@@ -20,6 +20,7 @@ package com.watabou.pixeldungeon.actors.mobs;
 import java.util.HashSet;
 
 import com.watabou.pixeldungeon.Badges;
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.Statistics;
 import com.watabou.pixeldungeon.actors.Char;
@@ -54,7 +55,7 @@ public class Goo extends Mob {
 		spriteClass = GooSprite.class;
 		
 		loot = new LloydsBeacon();
-		lootChance = 0.333f;
+		lootChance = Customization.LLOYDSBEACON_DROP_PROBABILITY;
 	}
 	
 	private boolean pumpedUp	= false;
