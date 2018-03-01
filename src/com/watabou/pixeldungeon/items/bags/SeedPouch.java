@@ -17,22 +17,24 @@
  */
 package com.watabou.pixeldungeon.items.bags;
 
+import com.watabou.pixeldungeon.Customization;
 import com.watabou.pixeldungeon.items.Item;
+import com.watabou.pixeldungeon.items.potions.Potion;
 import com.watabou.pixeldungeon.plants.Plant;
 import com.watabou.pixeldungeon.sprites.ItemSpriteSheet;
 
 public class SeedPouch extends Bag {
 
 	{
-		name = "seed pouch";
+		name = Customization.SEEDPOUCH_HOLDS_POTIONS ? "alchemist's pouch" : "seed pouch";
 		image = ItemSpriteSheet.POUCH;
 		
-		size = 8;
+		size = Customization.SEEDPOUCH_HOLDS_POTIONS ? 20 : 8;
 	}
 	
 	@Override
 	public boolean grab( Item item ) {
-		return item instanceof Plant.Seed;
+		return item instanceof Plant.Seed || (Customization.SEEDPOUCH_HOLDS_POTIONS && item instanceof Potion);
 	}
 	
 	@Override
@@ -43,6 +45,8 @@ public class SeedPouch extends Bag {
 	@Override
 	public String info() {
 		return
+			Customization.SEEDPOUCH_HOLDS_POTIONS ?
+			"This small velvet pouch allows you to store any number of seeds and potions in it. Very convenient." :
 			"This small velvet pouch allows you to store any number of seeds in it. Very convenient.";
 	}
 }

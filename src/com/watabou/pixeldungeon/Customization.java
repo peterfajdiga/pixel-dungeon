@@ -14,6 +14,8 @@ public final class Customization {
     public static final boolean ALWAYS_NIGHT = false;  // takes precedence
     public static final boolean ALWAYS_DAY = true;
 
+    public static final boolean SEEDPOUCH_HOLDS_POTIONS = true;  // vanilla is false
+
     public static final float LLOYDSBEACON_DROP_PROBABILITY = 0.333f;  // vanilla is 0.333f
     public static final boolean LLOYDSBEACON_SHOP = true;
 
