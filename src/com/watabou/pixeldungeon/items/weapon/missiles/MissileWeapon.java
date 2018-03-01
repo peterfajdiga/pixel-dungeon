@@ -86,14 +86,31 @@ abstract public class MissileWeapon extends Weapon {
 	
 	@Override
 	public boolean doEquip( final Hero hero ) {
+		final MissileWeapon requestedWeapon = this;
+
 		GameScene.show( 
 			new WndOptions( TXT_MISSILES, TXT_R_U_SURE, TXT_YES, TXT_NO ) {
 				@Override
 				protected void onSelect(int index) {
 					if (index == 0) {
 						MissileWeapon.super.doEquip( hero );
+					} else {
+						keepOnFloor();
 					}
-				};
+				}
+
+				@Override
+				public void onBackPressed() {
+					super.onBackPressed();
+					keepOnFloor();
+				}
+
+				private void keepOnFloor() {
+					if (!hero.belongings.backpack.contains(requestedWeapon)) {
+						// requestedWeapon is not in the backpack, but was on the floor. Let's put it back there.
+						Dungeon.level.drop( requestedWeapon, hero.pos ).sprite.drop();
+					}
+				}
 			}
 		);
 		
