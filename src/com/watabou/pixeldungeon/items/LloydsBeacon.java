@@ -178,6 +178,6 @@ public class LloydsBeacon extends Item {
 
 	@Override
 	public int price() {
-		return 50;
+		return 30;
 	}
 }
