@@ -61,8 +61,8 @@ public class ShopPainter extends Painter {
 		pasWidth = room.width() - 2;
 		pasHeight = room.height() - 2;
 		int per = pasWidth * 2 + pasHeight * 2;
-		
-		Item[] range = range();
+
+		final Item[] range = range((pasWidth+1) * (pasHeight+1) - 1);
 		
 		int pos = xy2p( room, room.entrance() ) + (per - range.length) / 2;
 		for (int i=0; i < range.length; i++) {
@@ -88,7 +88,7 @@ public class ShopPainter extends Painter {
 		}
 	}
 	
-	private static Item[] range() {
+	private static Item[] range(final int nItems) {
 		
 		ArrayList<Item> items = new ArrayList<Item>();
 		
@@ -157,7 +157,11 @@ public class ShopPainter extends Painter {
 		items.add( new OverpricedRation() );
 		
 		items.add( new Ankh() );
-		
+
+		if (items.size() > nItems) {
+			items.subList(nItems, items.size()).clear();
+		}
+
 		Item[] range =items.toArray( new Item[0] );
 		Random.shuffle( range );
 		
